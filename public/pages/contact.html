@@ -1,0 +1,110 @@
+
+      <div class="container">
+         <div class="col-sm-8 col-sm-offset-2">
+            <div class="page-header">
+               <h1></h1>
+            </div>
+            <div ng-app="myApp" ng-controller="myEditCtrl">
+               <form name="userForm" ng-submit="submitForm(userForm.$valid)" novalidate>
+                  <div class="form-group" ng-class="{ 'has-error' : (userForm.username.$invalid && !userForm.username.$pristine) || (userForm.username.$invalid && userForm.username.$touched) }" >
+                     <label>Username</label>
+                     <input type="text" name="username" class="form-control" ng-model="user.username" ng-minlength="4" ng-maxlength="10" required>
+                     <p ng-show="userForm.username.$touched && userForm.username.$error.required" class="help-block">Username required</p>
+                     <p ng-show="userForm.username.$error.minlength" class="help-block">Username is too short.</p>
+                     <p ng-show="userForm.username.$error.maxlength" class="help-block">Username is too long.</p>
+                  </div>
+                  <br/>
+                  <br/>
+
+
+
+
+               <!--   <label>Email</label>
+                  <button type="button" class="btn btn-default btn-circle"  ng-click="addNewChoice(1)">+</button>
+                  <button type="button" class="btn btn-default btn-circle" ng-click="removeChoice(1)">-</button>
+                  <div  ng-repeat="email in Emails">
+                     <div class="col-md-3">
+                        <select  ng-model="email.id" ng-init='email.id=set($index)'>
+                           <option value="mobile">mobile</option>
+                           <option  value="work">Work</option>
+                           <option value="home">Home</option>
+                           <option value="other">Other</option>
+                        </select>
+                        <div class="form-group" ng-class="{ 'has-error' : userForm.email.Name.$invalid}" >
+                           <input  type="text" name='email.email_id'  class="form-control" ng-model="email.email_id" ng-pattern='/^\d+$/'  ng-required='true'>
+                           {{email.email_id}}
+                        </div>
+                        <div class='error' ng-show='userForm.email.email_id.$error.pattern'>
+                           Must be a number.
+                        </div>
+                     </div>
+                  </div>
+                  {{Emails}}
+                  <br/>
+                  <br/>
+                  <br/>
+                  <br/>-->
+
+
+                  <label>Email</label>
+                  <button type="button" class="btn btn-default btn-circle"  ng-click="addNewChoice(1)">+</button>
+                  <button type="button" class="btn btn-default btn-circle" ng-click="removeChoice(1)">-</button>
+                  <br/>
+                  <br/> 
+                  <div ng-repeat="email in Emails" ng-init="subForm='tags'+$index">
+                     <ng-form name="{{subForm}}">
+                        <select ng-model="email.id" ng-init='email.id=set1($index)'>
+                           <option value="work">Work</option>
+                           <option  value="personal">Personal</option>
+                           <option value="personal2">Personal2</option>
+                           <option value="other">Other</option>
+                        </select>
+                        <input name="email" ng-model="email.email_id" ng-pattern="/^[_a-z0-9]+(\.[_a-z0-9]+)*@[a-z0-9-]*\.([a-z]{2,4})$/" required />
+                        <div ng-if="this[subForm].number.$error.pattern">
+                           Enter a 10 digit number
+                        </div>
+                        <div ng-if="(this[subForm].number.$error.required && this[subForm].number.$touched)">
+                           This is required
+                        </div>
+                     </ng-form>
+                     <br/><br/>
+                  </div>
+
+
+
+
+                  <button type="button" class="btn btn-default btn-circle"  ng-click="addNewChoice(2)">+</button>
+                  <button type="button" class="btn btn-default btn-circle"  ng-click="removeChoice(2)">-</button>
+                  <label>Contact</label>
+                  <br/>
+                  <br/> 
+                  <div ng-repeat="item in Contacts" ng-init="subForm='tags'+$index">
+                     <ng-form name="{{subForm}}">
+                        <select ng-model="item.id" ng-init='item.id=set2($index)'>
+                           <option value="mobile">Mobile</option>
+                           <option  value="work">Work</option>
+                           <option value="home">Home</option>
+                           <option value="other">Other</option>
+                        </select>
+                        <input name="number" ng-model="item.number" ng-pattern="/^[1-9]{1}[0-9]{9}$/" required />
+                        <div ng-if="this[subForm].number.$error.pattern">
+                           Enter a 10 digit number
+                        </div>
+                        <div ng-if="(this[subForm].number.$error.required && this[subForm].number.$touched)">
+                           This is required
+                        </div>
+                     </ng-form>
+                     <br/><br/>
+                  </div>
+
+
+
+                  <br/><br/>
+                  <button type="submit" class="btn btn-primary" ng-class="{ 'has-error' : 1}" ng-disabled="userForm.$invalid">Submit</button>
+               </form>
+               <p>{{myTxt}}</p>
+            </div>
+         </div>
+      </div>
+      
+

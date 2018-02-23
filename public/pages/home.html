@@ -1,0 +1,32 @@
+<div class="container">
+  <div>
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="form-group">
+    <input data-ng-model="search.$"  type="text" placeholder="All Search" class="form-control" />
+    </div>
+    <br />
+    <br />
+    <table class="table">
+      <tr ng-repeat="row in filterList | start: (currentPage - 1) * itemsPerPage | limitTo: itemsPerPage">
+        <td>{{row.name}}</td>
+        <td>    
+        Work: {{row.email[0]}}
+        <br/>
+        Home:  {{row.email[1]}}
+       </td>
+        <td>
+          Work: {{row.phone}}
+         <br/>
+        Home:  {{row.phone[1]}}
+        </td>
+      </tr>
+    </table>   
+   
+    <pagination total-items="filterList.length" ng-model="currentPage" max-size="maxSize" class="pagination-sm"  items-per-page="itemsPerPage"></pagination>
+    
+ 
+  </div>
+  </div>
