@@ -7,9 +7,15 @@ angular.module('myApp', ['ui.bootstrap',"ngRoute"])
 
 .controller('myEditCtrl',myEditCtrl);
 
-myCtrl.$inject=['$scope','myService','$filter','$interpolate','filterFilter']
-function myCtrl ($scope,myService,$filter,$interpolate,filterFilter) {
-
+myCtrl.$inject=['$scope','myService','$filter','$interpolate','filterFilter','$window']
+function myCtrl ($scope,myService,$filter,$interpolate,filterFilter,$window) {
+if ($window.localStorage.getItem('dashboard')!='null'){
+  $scope.data =JSON.parse($window.localStorage.getItem('dashboard'))
+  console.log($scope.data)
+    call();
+            
+}
+else{
 myService.getData().then(function(data){
       $scope.data = data;
       console.log(data)
@@ -18,7 +24,7 @@ myService.getData().then(function(data){
    .catch(function(response){
       console.log(response.status);
    }); 
-
+  }
 function call(){
   $scope.currentPage = 1;
   $scope.itemsPerPage = 10;
@@ -49,10 +55,31 @@ function call(){
 
 
 
-myEditCtrl.$inject=['$scope','myService']
+myEditCtrl.$inject=['$scope','myService','$window']
 
-function myEditCtrl($scope,myService){
-    
+function myEditCtrl($scope,myService,$window){
+ 
+
+  if ($window.localStorage.getItem('dashboard')!='null'){
+    $scope.data =JSON.parse($window.localStorage.getItem('dashboard'))
+    console.log($window.localStorage.getItem('dashboard'))
+      other();
+              
+  }
+  else{
+  myService.getData().then(function(data){
+        $scope.data = data;
+        console.log(data)
+        other();
+     })
+     .catch(function(response){
+        console.log(response.status);
+     }); 
+    }
+  
+
+
+  function other() {
     $scope.Emails=[{id: 'choice1'}];
     $scope.Contacts=[{id: 'choice1'}];
     $scope.set1=function(x){
@@ -125,20 +152,13 @@ function myEditCtrl($scope,myService){
         "Contacts":contactjson
       };
       console.log(userJson);
-      
-      myService.getData().then(function(data){
-      $scope.data = data;
-      console.log(data)
       $scope.data.push(userJson);
-      
-   })
-   .catch(function(response){
-      console.log(response.status);
-   }); 
+      myService.setData($scope.data)
+  
 		}
 
 	};
-
+  }
    
 }
 
