@@ -2,7 +2,7 @@
     "use strict";
 
 angular.module('myApp', ['ui.bootstrap',"ngRoute"])
-.constant('basePath', 'https://api.myjson.com/bins/10gtel')
+.constant('basePath', 'https://api.myjson.com/bins/n25mt')
 .controller('myCtrl', myCtrl)
 
 .controller('myEditCtrl',myEditCtrl);
